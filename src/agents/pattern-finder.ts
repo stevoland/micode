@@ -2,7 +2,6 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 
 export const patternFinderAgent: AgentConfig = {
   description: "Finds existing patterns and examples to model after",
-  mode: "subagent",
   tools: { write: false, edit: false },
   prompt: `# Pattern Finder
 

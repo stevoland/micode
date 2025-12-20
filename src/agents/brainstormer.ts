@@ -3,7 +3,6 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 export const brainstormerAgent: AgentConfig = {
   description:
     "Refines rough ideas into fully-formed designs through collaborative questioning, alternative exploration, and incremental validation",
-  mode: "subagent",
   prompt: `# Brainstorming Ideas Into Designs
 
 Help turn ideas into fully formed designs and specs through natural collaborative dialogue.

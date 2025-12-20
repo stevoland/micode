@@ -2,7 +2,6 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 
 export const codebaseLocatorAgent: AgentConfig = {
   description: "Finds WHERE files live in the codebase without analyzing content",
-  mode: "subagent",
   tools: { write: false, edit: false },
   prompt: `# Codebase Locator
 

@@ -2,7 +2,6 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 
 export const codebaseAnalyzerAgent: AgentConfig = {
   description: "Explains HOW code works with precise file:line references",
-  mode: "subagent",
   tools: { write: false, edit: false },
   prompt: `# Codebase Analyzer
 

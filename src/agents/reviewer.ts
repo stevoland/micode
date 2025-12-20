@@ -2,7 +2,6 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 
 export const reviewerAgent: AgentConfig = {
   description: "Reviews implementation for correctness and quality",
-  mode: "subagent",
   tools: { write: false, edit: false },
   prompt: `# Reviewer
 

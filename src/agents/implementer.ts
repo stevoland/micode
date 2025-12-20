@@ -2,7 +2,6 @@ import type { AgentConfig } from "@opencode-ai/sdk";
 
 export const implementerAgent: AgentConfig = {
   description: "Executes implementation tasks from a plan",
-  mode: "subagent",
   prompt: `# Implementer
 
 You execute implementation tasks. You write code, create files, and run commands.
