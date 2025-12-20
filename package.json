@@ -1,0 +1,35 @@
+{
+  "name": "@vtemian/opencode-config",
+  "version": "0.1.0",
+  "description": "Minimal OpenCode plugin with research-plan-implement workflow",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun --format esm && tsc --emitDeclarationOnly",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run clean && bun run build"
+  },
+  "keywords": ["opencode", "plugin", "research", "plan", "implement"],
+  "author": "vtemian",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vtemian/.opencode.git"
+  },
+  "dependencies": {
+    "@opencode-ai/plugin": "^1.0.162"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.7.3"
+  }
+}
