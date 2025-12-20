@@ -1,7 +1,10 @@
 import type { Plugin } from "@opencode-ai/plugin";
-import type { AgentConfig, McpLocalConfig } from "@opencode-ai/sdk";
+import type { McpLocalConfig } from "@opencode-ai/sdk";
 import * as fs from "fs";
 import * as path from "path";
+
+// Agents
+import { agents } from "./agents";
 
 // Tools
 import {
@@ -42,30 +45,6 @@ function parseFrontmatter(content: string): { metadata: Record<string, unknown>;
   }
 
   return { metadata, body };
-}
-
-// Load agents from agent/ directory
-function loadAgents(pluginDir: string): Record<string, AgentConfig> {
-  const agentsDir = path.join(pluginDir, "agent");
-  const agents: Record<string, AgentConfig> = {};
-
-  if (!fs.existsSync(agentsDir)) return agents;
-
-  for (const file of fs.readdirSync(agentsDir)) {
-    if (!file.endsWith(".md")) continue;
-
-    const content = fs.readFileSync(path.join(agentsDir, file), "utf-8");
-    const { metadata, body } = parseFrontmatter(content);
-
-    const name = (metadata.name as string) || file.replace(".md", "");
-    agents[name] = {
-      description: (metadata.description as string) || `Agent: ${name}`,
-      model: (metadata.model as string) || "sonnet",
-      prompt: body.trim(),
-    };
-  }
-
-  return agents;
 }
 
 // Command config type
@@ -127,7 +106,6 @@ const MCP_SERVERS: Record<string, McpLocalConfig> = {
 const OpenCodeConfigPlugin: Plugin = async (ctx) => {
   const pluginDir = path.dirname(new URL(import.meta.url).pathname).replace("/dist", "").replace("/src", "");
 
-  const agents = loadAgents(pluginDir);
   const commands = loadCommands(pluginDir);
 
   // Think mode state per session
