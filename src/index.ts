@@ -44,9 +44,9 @@ function parseFrontmatter(content: string): { metadata: Record<string, unknown>;
   return { metadata, body };
 }
 
-// Load agents from agents/ directory
+// Load agents from agent/ directory
 function loadAgents(pluginDir: string): Record<string, AgentConfig> {
-  const agentsDir = path.join(pluginDir, "agents");
+  const agentsDir = path.join(pluginDir, "agent");
   const agents: Record<string, AgentConfig> = {};
 
   if (!fs.existsSync(agentsDir)) return agents;
