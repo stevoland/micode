@@ -15,6 +15,8 @@ Add to `~/.config/opencode/opencode.json`:
 }
 ```
 
+**AI-assisted install:** Share [INSTALL_CLAUDE.md](./INSTALL_CLAUDE.md) with your AI assistant for guided setup.
+
 ## Workflow
 
 ```
