@@ -2,7 +2,7 @@ import type { Plugin } from "@opencode-ai/plugin";
 import type { McpLocalConfig } from "@opencode-ai/sdk";
 
 // Agents
-import { agents } from "./agents";
+import { agents, PRIMARY_AGENT_NAME } from "./agents";
 
 // Tools
 import {
@@ -87,10 +87,13 @@ const OpenCodeConfigPlugin: Plugin = async (ctx) => {
     },
 
     config: async (config) => {
-      // Add agents (plugin agents override defaults)
+      // Add agents with Commander as primary, demote built-in build/plan to subagent
       config.agent = {
+        Commander: agents[PRIMARY_AGENT_NAME],
+        ...Object.fromEntries(Object.entries(agents).filter(([k]) => k !== PRIMARY_AGENT_NAME)),
         ...config.agent,
-        ...agents,
+        build: { ...config.agent?.build, mode: "subagent" },
+        plan: { ...config.agent?.plan, mode: "subagent" },
       };
 
       // Add MCP servers (plugin servers override defaults)
