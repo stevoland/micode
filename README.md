@@ -1,21 +1,14 @@
-# .opencode
+# micode
 
 OpenCode plugin with a structured Brainstorm → Research → Plan → Implement workflow.
 
 ## Installation
 
-```bash
-git clone git@github.com:vtemian/.opencode.git ~/.opencode
-cd ~/.opencode
-bun install
-bun run build
-```
-
 Add to `~/.config/opencode/opencode.json`:
 
 ```json
 {
-  "plugin": ["~/.opencode/dist/index.js"]
+  "plugin": ["micode"]
 }
 ```
 
@@ -143,10 +136,29 @@ Save/resume session state for continuity:
 
 ## Development
 
+### From source
+
+```bash
+git clone git@github.com:vtemian/micode.git ~/.micode
+cd ~/.micode
+bun install
+bun run build
+```
+
+Then use local path in config:
+```json
+{
+  "plugin": ["~/.micode/dist/index.js"]
+}
+```
+
+### Commands
+
 ```bash
 bun install       # Install dependencies
 bun run build     # Build plugin
 bun run typecheck # Type check
+npm publish       # Publish to npm
 ```
 
 ## Philosophy

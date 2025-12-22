@@ -1,7 +1,7 @@
 {
-  "name": "@vtemian/opencode-config",
+  "name": "micode",
   "version": "0.1.0",
-  "description": "Minimal OpenCode plugin with research-plan-implement workflow",
+  "description": "OpenCode plugin with Brainstorm-Research-Plan-Implement workflow",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -23,7 +23,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vtemian/.opencode.git"
+    "url": "git+https://github.com/vtemian/micode.git"
+  },
+  "homepage": "https://github.com/vtemian/micode#readme",
+  "bugs": {
+    "url": "https://github.com/vtemian/micode/issues"
   },
   "dependencies": {
     "@opencode-ai/plugin": "1.0.180"
