@@ -7,7 +7,6 @@ import { agents, PRIMARY_AGENT_NAME } from "./agents";
 // Tools
 import { ast_grep_search, ast_grep_replace } from "./tools/ast-grep";
 import { look_at } from "./tools/look-at";
-import { createAskUserTool } from "./tools/ask-user";
 
 // Hooks
 import { createAutoCompactHook } from "./hooks/auto-compact";
@@ -60,16 +59,12 @@ const OpenCodeConfigPlugin: Plugin = async (ctx) => {
   const backgroundTaskManager = new BackgroundTaskManager(ctx);
   const backgroundTaskTools = createBackgroundTaskTools(backgroundTaskManager);
 
-  // Ask User Tool
-  const ask_user = createAskUserTool();
-
   return {
     // Tools
     tool: {
       ast_grep_search,
       ast_grep_replace,
       look_at,
-      ask_user,
       ...backgroundTaskTools,
     },
 
