@@ -69,13 +69,12 @@ const OpenCodeConfigPlugin: Plugin = async (ctx) => {
     },
 
     config: async (config) => {
-      // Add agents with Commander as primary, demote built-in build/plan to subagent
+      // Add our agents, remove built-in build/plan
+      const { build, plan, ...restAgents } = config.agent || {};
       config.agent = {
         Commander: agents[PRIMARY_AGENT_NAME],
         ...Object.fromEntries(Object.entries(agents).filter(([k]) => k !== PRIMARY_AGENT_NAME)),
-        ...config.agent,
-        build: { ...config.agent?.build, mode: "subagent" },
-        plan: { ...config.agent?.plan, mode: "subagent" },
+        ...restAgents,
       };
 
       // Add MCP servers (plugin servers override defaults)
