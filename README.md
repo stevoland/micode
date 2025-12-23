@@ -3,7 +3,7 @@
 [![CI](https://github.com/vtemian/micode/actions/workflows/ci.yml/badge.svg)](https://github.com/vtemian/micode/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/micode.svg)](https://www.npmjs.com/package/micode)
 
-OpenCode plugin with a structured Brainstorm → Research → Plan → Implement workflow.
+OpenCode plugin with a structured Brainstorm → Plan → Implement workflow.
 
 ## Installation
 
@@ -17,11 +17,25 @@ Add to `~/.config/opencode/opencode.json`:
 
 **AI-assisted install:** Share [INSTALL_CLAUDE.md](./INSTALL_CLAUDE.md) with your AI assistant for guided setup.
 
+## Getting Started
+
+**Important:** Run `/init` first to generate project documentation:
+
+```
+/init
+```
+
+This creates `ARCHITECTURE.md` and `CODE_STYLE.md` which agents reference during brainstorming, planning, and implementation. Without these files, agents lack context about your codebase patterns.
+
 ## Workflow
 
 ```
-Brainstorm → Research → Plan → Implement → Review
+Brainstorm → Plan → Implement
+     ↓         ↓        ↓
+  research  research  executor
 ```
+
+Research subagents (codebase-locator, codebase-analyzer, pattern-finder) are spawned within brainstorm and plan phases - not as a separate step.
 
 ### 1. Brainstorm
 
@@ -30,11 +44,10 @@ Refine rough ideas into fully-formed designs through collaborative questioning.
 - One question at a time
 - 2-3 approaches with trade-offs
 - Section-by-section validation
+- Spawns research subagents to understand codebase
 - Output: `thoughts/shared/designs/YYYY-MM-DD-{topic}-design.md`
 
-### 2. Research
-
-Parallel codebase investigation using specialized subagents:
+**Research subagents** (spawned in parallel):
 
 | Subagent | Purpose |
 |----------|---------|
@@ -42,19 +55,18 @@ Parallel codebase investigation using specialized subagents:
 | `codebase-analyzer` | Explain HOW code works (with file:line refs) |
 | `pattern-finder` | Find existing patterns to follow |
 
-Output: `thoughts/shared/research/YYYY-MM-DD-{topic}.md`
-
-### 3. Plan
+### 2. Plan
 
 Transform validated designs into comprehensive implementation plans.
 
+- Spawns research subagents for exact paths, signatures, patterns
 - Bite-sized tasks (2-5 minutes each)
 - Exact file paths, complete code examples
 - TDD workflow: failing test → verify fail → implement → verify pass → commit
 - Get human approval before implementing
 - Output: `thoughts/shared/plans/YYYY-MM-DD-{topic}.md`
 
-### 4. Implement
+### 3. Implement
 
 Execute plan in git worktree for isolation:
 
@@ -146,7 +158,7 @@ Each task gets its own implement→review loop:
 - Blocked: 1 task needs human intervention
 ```
 
-### 5. Handoff
+### 4. Handoff
 
 Save/resume session state for continuity:
 
